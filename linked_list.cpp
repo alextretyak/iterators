@@ -72,10 +72,10 @@ public:
     public:
         PythonIterator(Node *node) : node(node) {}
 
-        auto &__next__()
+        Ty &__next__()
         {
             if (node == nullptr) throw StopIteration();
-            auto &result = node->value;
+            Ty &result = node->value;
             node = node->next_node.get();
             return result;
         }
@@ -94,13 +94,34 @@ public:
         std::optional<Ty> next()
         {
             if (node == nullptr) return std::nullopt;
-            auto &result = node->value;
+            Ty &result = node->value;
             node = node->next_node.get();
             return result;
         }
     };
 
     auto iter() const {return RustIterator(first.get());}
+
+    // Java
+    class JavaIterator
+    {
+        Node *node;
+
+    public:
+        JavaIterator(Node *node) : node(node) {}
+
+        bool hasNext() {return node != nullptr;}
+
+        Ty &next()
+        {
+            if (node == nullptr) throw NoSuchElementException();
+            Ty &result = node->value;
+            node = node->next_node.get();
+            return result;
+        }
+    };
+
+    auto iterator() const {return JavaIterator(first.get());}
 };
 
 

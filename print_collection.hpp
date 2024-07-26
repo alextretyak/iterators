@@ -1,4 +1,5 @@
 class StopIteration {};
+class NoSuchElementException {};
 
 template <typename Collection> void print_collection(const Collection &collection)
 {
@@ -32,6 +33,16 @@ template <typename Collection> void print_collection(const Collection &collectio
     auto it = collection.iter();
     while (auto current = it.next()) {
         std::cout << *current << ' ';
+    }
+    std::cout << '\n';
+    }
+
+    {
+    // Java
+    auto it = collection.iterator();
+    while (it.hasNext()) {
+        auto &&current = it.next();
+        std::cout << current << ' ';
     }
     std::cout << '\n';
     }
