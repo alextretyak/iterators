@@ -29,10 +29,6 @@ public:
     }
 
     // C++
-    class CppSentinel
-    {
-    };
-
     class CppIterator
     {
         Node *node;
@@ -40,14 +36,14 @@ public:
     public:
         CppIterator(Node *node) : node(node) {}
 
-        bool operator!=(CppSentinel) const {return node != nullptr;}
+        bool operator!=(CppIterator &it) const {return node != it.node;}
 
         auto &operator*() {return node->value;}
         void operator++() {node = node->next_node.get();}
     };
 
     CppIterator begin() const {return CppIterator(first.get());}
-    CppSentinel end  () const {return CppSentinel();}
+    CppIterator end  () const {return CppIterator(nullptr);}
 
     // D
     class DRange
