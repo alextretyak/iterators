@@ -43,10 +43,23 @@ public:
         void operator++() {node = node->next_node.get();}
     };
 
-    CppIterator begin() const { return CppIterator(first.get()); }
-    CppSentinel end  () const { return CppSentinel(); }
+    CppIterator begin() const {return CppIterator(first.get());}
+    CppSentinel end  () const {return CppSentinel();}
 
     // D
+    class DRange
+    {
+        Node *node;
+
+    public:
+        DRange(Node *node) : node(node) {}
+
+        bool empty() {return node == nullptr;}
+        auto &front() {return node->value;}
+        void popFront() {node = node->next_node.get();}
+    };
+
+    DRange range() const {return DRange(first.get());}
 };
 
 
@@ -63,4 +76,7 @@ int main()
     std::cout << '\n';
 
     // D
+    for (auto r = collection.range(); !r.empty(); r.popFront())
+        std::cout << r.front() << ' ';
+    std::cout << '\n';
 }
