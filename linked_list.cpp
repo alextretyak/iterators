@@ -1,4 +1,4 @@
-#include "print_collection.hpp"
+#include "print_iterable.hpp"
 
 template <typename Ty> class List
 {
@@ -32,7 +32,7 @@ public:
     public:
         CppIterator(Node *node) : node(node) {}
 
-        bool operator!=(CppIterator &it) const {return node != it.node;}
+        bool operator!=(CppIterator it) const {return node != it.node;}
 
         auto &operator*() {return node->value;}
         void operator++() {node = node->next_node.get();}
@@ -168,5 +168,5 @@ int main()
     list.append(3);
     list.append(4);
 
-    print_collection(list);
+    print_iterable(list);
 }

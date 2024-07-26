@@ -6,7 +6,7 @@ typedef ptrdiff_t ssize_t;
 class StopIteration {};
 class NoSuchElementException {};
 
-template <typename Collection> void print_collection(const Collection &collection)
+template <typename Collection> void print_iterable(const Collection &collection)
 {
     // C++
     for (auto it = collection.begin(); it != collection.end(); ++it)

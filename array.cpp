@@ -1,4 +1,4 @@
-#include "print_collection.hpp"
+#include "print_iterable.hpp"
 
 template <typename Ty, ssize_t max_count> class Array
 {
@@ -136,5 +136,5 @@ int main()
     array.append(4);
     array.append(3);
 
-    print_collection(array);
+    print_iterable(array);
 }
