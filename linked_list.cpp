@@ -1,5 +1,8 @@
 #include <memory>
 #include <iostream>
+#include <optional>
+
+#include "print_collection.hpp"
 
 template <typename Ty> class List
 {
@@ -60,6 +63,44 @@ public:
     };
 
     DRange range() const {return DRange(first.get());}
+
+    // Python
+    class PythonIterator
+    {
+        Node *node;
+
+    public:
+        PythonIterator(Node *node) : node(node) {}
+
+        auto &__next__()
+        {
+            if (node == nullptr) throw StopIteration();
+            auto &result = node->value;
+            node = node->next_node.get();
+            return result;
+        }
+    };
+
+    auto __iter__() const {return PythonIterator(first.get());}
+
+    // Rust
+    class RustIterator
+    {
+        Node *node;
+
+    public:
+        RustIterator(Node *node) : node(node) {}
+
+        std::optional<Ty> next()
+        {
+            if (node == nullptr) return std::nullopt;
+            auto &result = node->value;
+            node = node->next_node.get();
+            return result;
+        }
+    };
+
+    auto iter() const {return RustIterator(first.get());}
 };
 
 
@@ -70,13 +111,5 @@ int main()
     collection.append(3);
     collection.append(4);
 
-    // C++
-    for (auto it = collection.begin(); it != collection.end(); ++it)
-        std::cout << *it << ' ';
-    std::cout << '\n';
-
-    // D
-    for (auto r = collection.range(); !r.empty(); r.popFront())
-        std::cout << r.front() << ' ';
-    std::cout << '\n';
+    print_collection(collection);
 }
