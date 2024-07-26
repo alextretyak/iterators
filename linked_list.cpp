@@ -141,10 +141,31 @@ public:
             node = node->next_node.get();
             return node != nullptr;
         }
-        auto &Current() {return node->value;}
+
+        Ty &Current() {return node->value;}
     };
 
     auto GetEnumerator() const {return CsharpIterator(first.get());}
+
+    // 11l
+    class Iterator11l
+    {
+        Node *node;
+
+    public:
+        Iterator11l(Node *node) : node(node) {}
+
+        Ty &current() {return node->value;}
+
+        bool advance() {node = node->next_node.get(); return node != nullptr;}
+    };
+
+    std::optional<Iterator11l> iter11l() const
+    {
+        if (!first)
+            return std::nullopt;
+        return Iterator11l(first.get());
+    }
 };
 
 

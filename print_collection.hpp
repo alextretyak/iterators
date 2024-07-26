@@ -55,4 +55,9 @@ template <typename Collection> void print_collection(const Collection &collectio
     }
     std::cout << '\n';
     }
+
+    // 11l
+    if (auto it = collection.iter11l()) do {
+        std::cout << it->current() << ' ';
+    } while (it->advance());
 }
