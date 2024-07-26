@@ -1,7 +1,3 @@
-#include <memory>
-#include <iostream>
-#include <optional>
-
 #include "print_collection.hpp"
 
 template <typename Ty> class List
@@ -110,7 +106,7 @@ public:
 
         Ty &next()
         {
-            if (node == nullptr) throw NoSuchElementException();
+            if (!hasNext()) throw NoSuchElementException();
             Ty &result = node->value;
             node = node->next_node.get();
             return result;
@@ -167,10 +163,10 @@ public:
 
 int main()
 {
-    List<int> collection;
-    collection.append(1);
-    collection.append(3);
-    collection.append(4);
+    List<int> list;
+    list.append(1);
+    list.append(3);
+    list.append(4);
 
-    print_collection(collection);
+    print_collection(list);
 }
