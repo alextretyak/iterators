@@ -46,4 +46,13 @@ template <typename Collection> void print_collection(const Collection &collectio
     }
     std::cout << '\n';
     }
+
+    {
+    // C#
+    auto it = collection.GetEnumerator();
+    while (it.MoveNext()) {
+        std::cout << it.Current() << ' ';
+    }
+    std::cout << '\n';
+    }
 }

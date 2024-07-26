@@ -122,6 +122,29 @@ public:
     };
 
     auto iterator() const {return JavaIterator(first.get());}
+
+    // С#
+    class CsharpIterator
+    {
+        bool iteration_started = false;
+        Node *node;
+
+    public:
+        CsharpIterator(Node *node) : node(node) {}
+
+        bool MoveNext()
+        {
+            if (!iteration_started) {
+                iteration_started = true;
+                return node != nullptr;
+            }
+            node = node->next_node.get();
+            return node != nullptr;
+        }
+        auto &Current() {return node->value;}
+    };
+
+    auto GetEnumerator() const {return CsharpIterator(first.get());}
 };
 
 
