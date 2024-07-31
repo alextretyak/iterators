@@ -24,7 +24,7 @@ public:
     // D
     class DRange
     {
-        const Ty *b, *e;
+        const Ty *b, *e; // >[https://accu.org/conf-docs/PDFs_2009/AndreiAlexandrescu_iterators-must-go.pdf <- google:‘iterators must go’]:‘T *b, *e;...29 / 52’
 
     public:
         DRange(const Ty *b, ssize_t len) : b(b), e(b + len) {}
