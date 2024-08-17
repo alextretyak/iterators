@@ -8,6 +8,9 @@ class NoSuchElementException {};
 
 template <typename Collection> void print_iterable(const Collection &collection)
 {
+#ifdef USE_WCOUT
+#define cout wcout
+#endif
     // C++
     for (auto it = collection.begin(); it != collection.end(); ++it)
         std::cout << *it << ' ';
@@ -65,4 +68,5 @@ template <typename Collection> void print_iterable(const Collection &collection)
     if (auto it = collection.iter11l()) do {
         std::cout << it->current() << ' ';
     } while (it->advance());
+#undef cout
 }
