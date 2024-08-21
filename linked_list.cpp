@@ -18,10 +18,10 @@ public:
         last = ((last ? last->next_node : first) = std::make_unique<Node>(std::move(value))).get();
     }
 
-    void print()
+    void iterate(std::function<void(Ty&)> yield_fn = [](Ty &el) {std::cout << el << '\n';})
     {
         for (Node *n = first.get(); n; n = n->next_node.get())
-            std::cout << n->value << '\n';
+            yield_fn(n->value);
     }
 
     // C++

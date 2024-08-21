@@ -9,12 +9,12 @@ class Lines
 public:
     Lines(const char *fname) : fname(fname) {}
 
-    void print()
+    void iterate(std::function<void(const std::string&)> yield_fn = [](auto &&line) {std::cout << line << '\n';})
     {
         std::ifstream f(fname);
         std::string line;
         while (std::getline(f, line))
-            std::cout << line << '\n';
+            yield_fn(line);
     }
 
     // C++

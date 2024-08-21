@@ -1,6 +1,7 @@
 #include <memory>
 #include <iostream>
 #include <optional>
+#include <functional>
 typedef ptrdiff_t ssize_t;
 
 class StopIteration {};

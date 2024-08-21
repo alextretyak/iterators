@@ -7,10 +7,10 @@ class Range
 public:
     Range(int start, int end) : start(start), end_(end) {}
 
-    void print()
+    void iterate(std::function<void(int)> yield_fn = [](int i) {std::cout << i << '\n';})
     {
         for (int i = start; i < end_; i++)
-            std::cout << i << '\n';
+            yield_fn(i);
     }
 
     // C++

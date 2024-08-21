@@ -1,6 +1,5 @@
 #include <dirent.h>
 #include <string.h>
-#include <functional>
 #include "print_iterable.hpp"
 #include "UniqueHandle.hpp"
 
@@ -28,13 +27,13 @@ public:
         return false;
     }
 
-    void print()
+    void iterate(std::function<void(const std::string&)> yield_fn = [](auto &&name) {std::cout << name << '\n';})
     {
         DIR *dir_handle = opendir(dir_name.c_str());
         if (dir_handle == NULL) return;
         while (dirent *de = readdir(dir_handle))
             if (check_dirent(de))
-                std::cout << de->d_name << '\n';
+                yield_fn(de->d_name);
         closedir(dir_handle);
     }
 

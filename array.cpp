@@ -11,10 +11,10 @@ public:
         data[length++] = std::move(value);
     }
 
-    void print()
+    void iterate(std::function<void(Ty&)> yield_fn = [](Ty &el) {std::cout << el << '\n';})
     {
         for (ssize_t i = 0; i < length; i++)
-            std::cout << data[i] << '\n';
+            yield_fn(data[i]);
     }
 
     // C++

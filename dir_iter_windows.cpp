@@ -1,5 +1,4 @@
 #include <windows.h>
-#include <functional>
 #define USE_WCOUT
 #include "print_iterable.hpp"
 #include "UniqueHandle.hpp"
@@ -29,14 +28,14 @@ public:
         return false;
     }
 
-    void print()
+    void iterate(std::function<void(const std::wstring&)> yield_fn = [](auto &&name) {std::wcout << name << L'\n';})
     {
         WIN32_FIND_DATAW file_data;
         HANDLE search_handle = FindFirstFileW((dir_name + L"\\*.*").c_str(), &file_data);
         if (search_handle == INVALID_HANDLE_VALUE) return;
         do
             if (check_filedata(file_data))
-                std::wcout << file_data.cFileName << L'\n';
+                yield_fn(file_data.cFileName);
         while (FindNextFileW(search_handle, &file_data));
         FindClose(search_handle);
     }
