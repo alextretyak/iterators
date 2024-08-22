@@ -11,9 +11,6 @@ class Dir
     bool files_only;
     NameFilter name_filter;
 
-public:
-    Dir(const std::wstring &dir_name, bool files_only, NameFilter name_filter) : dir_name(dir_name), files_only(files_only), name_filter(name_filter) {}
-
     bool check_filedata(const WIN32_FIND_DATAW &file_data, std::wstring *cur_name = nullptr) const
     {
         if (!(file_data.dwFileAttributes&FILE_ATTRIBUTE_DIRECTORY) || (wcscmp(file_data.cFileName, L".") != 0
@@ -27,6 +24,9 @@ public:
             }
         return false;
     }
+
+public:
+    Dir(const std::wstring &dir_name, bool files_only, NameFilter name_filter) : dir_name(dir_name), files_only(files_only), name_filter(name_filter) {}
 
     void iterate(std::function<void(const std::wstring&)> yield_fn = [](auto &&name) {std::wcout << name << L'\n';})
     {

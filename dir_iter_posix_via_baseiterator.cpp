@@ -11,9 +11,6 @@ class Dir
     bool files_only;
     NameFilter name_filter;
 
-public:
-    Dir(const std::string &dir_name, bool files_only, NameFilter name_filter) : dir_name(dir_name), files_only(files_only), name_filter(name_filter) {}
-
     bool check_dirent(const dirent *de, std::string *cur_name = nullptr) const
     {
         if (de->d_type == DT_REG || (de->d_type == DT_DIR && strcmp(de->d_name, ".") != 0 && strcmp(de->d_name, "..") != 0))
@@ -26,6 +23,9 @@ public:
             }
         return false;
     }
+
+public:
+    Dir(const std::string &dir_name, bool files_only, NameFilter name_filter) : dir_name(dir_name), files_only(files_only), name_filter(name_filter) {}
 
     void iterate(std::function<void(const std::string&)> yield_fn = [](auto &&name) {std::cout << name << '\n';})
     {
